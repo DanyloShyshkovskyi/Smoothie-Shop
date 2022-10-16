@@ -52,7 +52,7 @@ export const authAction = createApi({
             },
             async onQueryStarted(arg: IAuthRegister & IData<ICartIdProduct[]>, {dispatch, queryFulfilled}) {
                 try {
-                    dispatch(cartSlice.actions.clearCart(null))
+                    dispatch(cartSlice.actions.clearCart())
                     await queryFulfilled
                     dispatch(modalAction.openModal('accountDetails'))
                 } catch {
@@ -90,7 +90,7 @@ export const authAction = createApi({
             async onQueryStarted(arg: null, {dispatch, queryFulfilled}) {
                 try {
                     await queryFulfilled
-                    dispatch(cartSlice.actions.clearCart(null))
+                    dispatch(cartSlice.actions.clearCart())
                     dispatch(modalAction.openModal('auth'))
                 } catch {
                 }
