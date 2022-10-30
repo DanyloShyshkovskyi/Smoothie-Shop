@@ -9,7 +9,7 @@ export const onFormInputChange = (event: ChangeEvent<HTMLInputElement>, setData:
 export const createFormState = (array: IFormElement[]): any => {
     var obj = {}  as any;
     array.forEach(item => {
-        obj[item.name] = 'k'
+        obj[item.name] = ''
 
     })
     return obj

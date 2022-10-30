@@ -10,11 +10,13 @@ import {modalAction} from "../../store/ui/modal/modal.slice";
 
 export const authAction = createApi({
     reducerPath: "auth",
+    tagTypes: ['User'],
     baseQuery: fakeBaseQuery(),
     endpoints: (build) => ({
         getUserData: build.query<IAuthData, string>({
             async queryFn(uid) {
                 try {
+                    console.log('uid-first', uid)
                     const q = query(collection(db, "users"), where("uid", "==", uid));
                     const doc = await getDocs(q);
                     const data = doc.docs[0].data() as IAuthData;
@@ -25,6 +27,7 @@ export const authAction = createApi({
                 }
             },
             keepUnusedDataFor: 0,
+            providesTags: ['User'],
             async onQueryStarted(arg: string, {dispatch, queryFulfilled}) {
                 try {
                     const {data: updatedPost} = await queryFulfilled
@@ -44,7 +47,7 @@ export const authAction = createApi({
                         email,
                         cart: data
                     } as IAuthData
-                    const newData = await addDoc(collection(db, "users"), authData);
+                    await addDoc(collection(db, "users"), authData);
                     return {data: authData}
                 } catch (err) {
                     return {error: {reason: 'Somethig went wrong'}}
@@ -62,7 +65,7 @@ export const authAction = createApi({
         login: build.mutation<string, IAuthLogin>({
             async queryFn({email, password}) {
                 try {
-                    const data = await signInWithEmailAndPassword(auth, email, password);
+                    await signInWithEmailAndPassword(auth, email, password);
                     return {data: "done"}
                 } catch (err) {
                     console.error(err);
@@ -96,16 +99,24 @@ export const authAction = createApi({
                 }
             }
         }),
-        updateData: build.mutation<string, IUpdateData>({
+        updateData: build.mutation<IUpdateData, IUpdateData>({
             async queryFn({id, data}) {
                 try {
                     await updateDoc(doc(db, 'users', id), {...data});
-                    return {data: "done"}
+                    return {data: {id, data}}
                 } catch (err) {
                     console.error(err);
                     return {error: {reason: 'Somethig went wrong'}}
                 }
             },
+            // invalidatesTags: ['User'],
+            onQueryStarted(arg: IUpdateData, {dispatch, queryFulfilled}) {
+                const patchedData = dispatch(
+                    authAction.util.updateQueryData("getUserData", arg.data.uid, (draft) => {
+                        return Object.assign(draft, arg.data)
+                    }))
+                queryFulfilled.catch(patchedData.undo)
+            }
         }),
     }),
 })

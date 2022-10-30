@@ -67,4 +67,5 @@ export const NoContent = styled.div`
   font-size: 34px;
   font-weight: 700;
   color: darkgrey;
+  padding: 50px 20px;
 `

@@ -18,6 +18,7 @@ export const LoaderBackgroundWhite = styled.div<BottleLoaderSvgParams>`
     background: rgba(255,255,255,0.50);
     backdrop-filter: blur(5px);
     border-radius: 10px;
+    position: absolute;
   `}
 `
 

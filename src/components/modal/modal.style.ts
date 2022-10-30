@@ -61,6 +61,10 @@ export const ModalDialog = styled.div<IModalDialog>`
   ${props => props.type === "cart" && css`
     width: 50%;
     max-width: 500px;
+    
+    h1 {
+      text-align: left;
+    }
   `}
 `
 

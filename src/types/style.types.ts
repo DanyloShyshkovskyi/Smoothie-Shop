@@ -32,3 +32,7 @@ export interface IProgressButtonStyle {
     pathCheckmark?: number,
     pathCross?: number,
 }
+
+export interface IUserImageStyle {
+    backgroundImage?: string
+}

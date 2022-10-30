@@ -16,6 +16,7 @@ export interface IAuthData {
     keyId: string,
     name: string,
     email: string,
+    image?: string,
     cart?: ICartIdProduct[]
 }
 

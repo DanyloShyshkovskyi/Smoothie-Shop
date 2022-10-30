@@ -5,6 +5,10 @@ body {
   font-family: 'Montserrat', sans-serif;
 }
 
+input[type="file"] {
+  display: none;
+}
+
 ::selection {
   background: rgba(127, 186, 65, 0.6);
 }
