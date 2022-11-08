@@ -4,7 +4,7 @@ import cartIcon from "../../../../assets/icons/cart-icon.png"
 import {useRef} from "react";
 import {useActions} from "../../../../store/useActions";
 import {useTypedSelector} from "../../../../store/useTypedSelector";
-import {useNavBarAnimation, useNavCountAnimation} from "../../../../utils/animation/NavBar.animation";
+import {useNavBarAnimation, useNavCountAnimation} from "../../../../utils/animation/navBar.animation";
 import {cartProductLength} from "../../../../utils/helpers/array.helpers";
 import {auth} from "../../../../services/firebase/firebase.config";
 

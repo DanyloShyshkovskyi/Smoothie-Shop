@@ -4,6 +4,7 @@ import {FormEvent, useState} from "react";
 import {IFormElement} from "../../../types/auth.types";
 import {CustomInput} from "../customInput/customInput";
 import {createFormState, onFormInputChange} from "../../../utils/helpers/form.helpers";
+import {BottleLoaderSvg} from "../../loaders/bottleLoader/bottleLoader.svg";
 
 interface IDefaultForm {
     onSubmit: (e: FormEvent<HTMLFormElement>, formData: any) => void,
@@ -11,10 +12,12 @@ interface IDefaultForm {
     submitLabel: string,
     title?: string
     options?: string,
+    errorMessage?: string,
+    isLoading?: boolean
     formElements: IFormElement[]
 }
 
-export const DefaultForm = ({onSubmit, submitLabel, children, title, options, formElements}: IDefaultForm) => {
+export const DefaultForm = ({onSubmit, submitLabel, children, title, options, formElements, errorMessage, isLoading}: IDefaultForm) => {
     const [formData, setFormData] = useState<any>(createFormState(formElements))
 
     return (
@@ -35,7 +38,9 @@ export const DefaultForm = ({onSubmit, submitLabel, children, title, options, fo
                     {...inputAttribute}
                 />
             )}
+            {errorMessage && <p>{errorMessage}</p>}
             <input type={"submit"} value={submitLabel}/>
+            {isLoading && <BottleLoaderSvg fullAbsolute/>}
         </FormStyle>
     )
 }

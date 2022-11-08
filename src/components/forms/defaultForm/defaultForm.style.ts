@@ -4,6 +4,16 @@ export const FormStyle = styled.form`
   background: white;
   width: 100%;
   padding: 20px;
+  
+  p {
+    font-size: 14px;
+    color: red;
+    margin: 5px;
+    
+    &:first-letter {
+      text-transform: uppercase;
+    }
+  }
 
   input[type="submit"] {
     cursor: pointer;
@@ -20,13 +30,12 @@ export const FormStyle = styled.form`
     transition:
             background 250ms ease-in-out,
             transform 150ms ease,
-            opacity 250ms ease-in-out;
-
-    &:active {
-      transform: scale(0.95);
-    }
-
-    &:focus {
+            opacity 250ms ease-in-out,
+            filter 300ms ease-in-out;
+    
+    &:focus,
+    &:hover {
+      filter: brightness(0.8);
       outline: none;
       outline-offset: -4px;
     }

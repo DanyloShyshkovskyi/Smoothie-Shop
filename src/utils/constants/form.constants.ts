@@ -25,10 +25,10 @@ export const REGISTER_FORM_ELEMENTS = [
 
     ...LOGIN_FORM_ELEMENTS,
 
-    {
-        label: "Password Repeat",
-        placeholder: "Password Repeat",
-        name: "password_repeat",
-        type: "password",
-    },
+    // {
+    //     label: "Password Repeat",
+    //     placeholder: "Password Repeat",
+    //     name: "password_repeat",
+    //     type: "password",
+    // },
 ]

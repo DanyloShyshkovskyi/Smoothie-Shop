@@ -13,6 +13,7 @@ export const NavBarView = styled.nav`
   padding: ${PADDING_DEFAULT}px;
   position: fixed;
 `
+NavBarView.displayName = "Navka"
 
 export const LogoView = styled.h1`
   font-size: 30px;

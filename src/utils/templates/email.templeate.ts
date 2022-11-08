@@ -66,7 +66,6 @@ export const EMAIL_TEMPLATE_STYLE = `
         }
         .cart {
             margin: 15px 0;
-            /*background: antiquewhite;*/
         }
         
     </style>

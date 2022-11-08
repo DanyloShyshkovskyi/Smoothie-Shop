@@ -51,7 +51,7 @@ export const FormContainerStyle = styled.div`
   justify-content: center;
   top: 0;
   height: 100%;
-  transition: all 0.6s ease-in-out;
+  //transition: all 0.6s ease-in-out;
 `
 
 export const FormSingInStyle = styled(FormContainerStyle)`
@@ -86,14 +86,14 @@ export const OverlayContainer = styled.div`
   width: 50%;
   height: 100%;
   overflow: hidden;
-  transition: transform 0.6s ease-in-out;
+  //transition: transform 0.6s ease-in-out;
   z-index: 10;
 `
 
 export const OverlayStyle = styled.div`
   box-sizing: border-box;
-  background: rgb(153,237,98);
-  background: linear-gradient(90deg, rgba(153,237,98,1) 0%, rgba(15,107,12,1) 100%);
+  background: rgb(153, 237, 98);
+  background: linear-gradient(90deg, rgba(153, 237, 98, 1) 0%, rgba(15, 107, 12, 1) 100%);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 0 0;
@@ -103,7 +103,7 @@ export const OverlayStyle = styled.div`
   height: 100%;
   width: 200%;
   transform: translateX(0);
-  transition: transform 0.6s ease-in-out;
+  //transition: transform 0.6s ease-in-out;
 `
 
 export const OverlayPanel = styled.div`
@@ -119,7 +119,7 @@ export const OverlayPanel = styled.div`
   height: 100%;
   width: 50%;
   transform: translateX(0);
-  transition: transform 0.6s ease-in-out;
+  //transition: transform 0.6s ease-in-out;
 
   button {
     margin-top: 15px;
@@ -133,14 +133,18 @@ export const OverlayPanel = styled.div`
     padding: 12px 45px;
     letter-spacing: 1px;
     text-transform: uppercase;
-    transition: transform 80ms ease-in;
+    transition: transform 80ms ease-in,
+    background-color 300ms ease-in;
+
+    &:focus,
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.1);
+      outline: none;
+      outline-offset: -4px;
+    }
 
     &:active {
       transform: scale(0.95);
-    }
-
-    &:focus {
-      outline: none;
     }
   }
 `

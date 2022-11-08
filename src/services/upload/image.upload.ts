@@ -2,7 +2,7 @@ import {ChangeEvent, Dispatch, SetStateAction} from "react";
 import {getDownloadURL, ref, uploadBytesResumable} from "firebase/storage";
 import {storage} from "../firebase/firebase.config";
 
-export const uploadImage = (e: ChangeEvent<HTMLInputElement>, loading: Dispatch<SetStateAction<boolean>>, imageSend: (url: string) => void) => {
+export const imageUpload = (e: ChangeEvent<HTMLInputElement>, loading: Dispatch<SetStateAction<boolean>>, imageSend: (url: string) => void) => {
     const fileList = e.target.files
     loading(true)
     if (!fileList) return
@@ -18,11 +18,13 @@ export const uploadImage = (e: ChangeEvent<HTMLInputElement>, loading: Dispatch<
 
     uploadTask.on(
         "state_changed",
-        // (snapshot) => {
+        (snapshot) => {
             // const percent = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
             // update progress
             // console.log(percent);
-        // },
+
+            console.log(snapshot)
+        },
         (err) => {
             console.log(err)
             loading(false)
@@ -30,7 +32,6 @@ export const uploadImage = (e: ChangeEvent<HTMLInputElement>, loading: Dispatch<
         () => {
             // download url
             getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-                // console.log(url);
                 imageSend(url)
             });
 

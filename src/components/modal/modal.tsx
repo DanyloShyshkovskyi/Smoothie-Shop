@@ -35,10 +35,10 @@ const Modal = () => {
 
             window.removeEventListener('keydown', keyDownHandler);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
-        console.log("isOpen", isOpen)
         modalTween.current && modalTween.current.reversed(!isOpen);
     }, [isOpen]);
 

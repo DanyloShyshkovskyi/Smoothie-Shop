@@ -11,7 +11,7 @@ import {useAuthState} from "react-firebase-hooks/auth";
 import {auth} from "../../services/firebase/firebase.config";
 import {ChangeEvent, useEffect, useRef, useState} from "react";
 import {BottleLoaderSvg} from "../loaders/bottleLoader/bottleLoader.svg";
-import {uploadImage} from "../../services/upload/upload.image";
+import {imageUpload} from "../../services/upload/image.upload";
 import gsap from "gsap";
 import defaultUserLogo from "../../assets/icons/peep.svg"
 
@@ -34,6 +34,7 @@ export const UserDetails = () => {
     const buttonRef = useRef<HTMLDivElement>(null);
 
     useEffect(()=> {
+        if (!(imageRef.current || textRef.current || buttonRef.current)) return
         gsap.fromTo(imageRef.current, {
             x: -100,
             opacity: 0
@@ -70,7 +71,7 @@ export const UserDetails = () => {
     const uploadImageFunc = (e: ChangeEvent<HTMLInputElement>) => {
         if (!userData) return
         setImageLoading(true)
-        uploadImage(
+        imageUpload(
             e,
             setImageLoading,
             (url => updateData({id: userData.keyId, data: {image: url, uid: userData.uid}}))

@@ -7,35 +7,41 @@ import {
     OverlayContainer, OverlayPanelLeft, OverlayPanelRight,
     OverlayStyle
 } from "./authContainer.style";
-import {useEffect, useState} from "react";
-import {useTypedSelector} from "../../../store/useTypedSelector";
+import {useRef, useState} from "react";
+import {useAuthContainerAnimation} from "../../../utils/animation/authContainer.animation";
 
 export const AuthContainer = () => {
-
+    // React state
     const [rightPanelActive, setRightPanelActive] = useState(false)
 
-    const {isOpen} = useTypedSelector(state => state.modal)
+    // Refs
+    const formSingIn = useRef<HTMLDivElement>(null)
+    const formSignUp = useRef<HTMLDivElement>(null)
+    const overlay = useRef<HTMLDivElement>(null)
+    const overlayContainer = useRef<HTMLDivElement>(null)
+    const overlayPanelLeft = useRef<HTMLDivElement>(null)
+    const overlayPanelRight = useRef<HTMLDivElement>(null)
+    const allRefs = {formSingIn,formSignUp,overlay,overlayContainer,overlayPanelLeft,overlayPanelRight}
 
-    useEffect(()=> {
-
-    }, [isOpen])
+    // Animation
+    useAuthContainerAnimation(allRefs, rightPanelActive)
 
     return (
-        <AuthContainerStyle rightPanelActive={rightPanelActive}>
-            <FormSignUpStyle>
+        <AuthContainerStyle /*rightPanelActive={rightPanelActive}*/>
+            <FormSignUpStyle ref={formSignUp}>
                 <RegisterForm/>
             </FormSignUpStyle>
-            <FormSingInStyle>
+            <FormSingInStyle ref={formSingIn}>
                 <LoginForm/>
             </FormSingInStyle>
-            <OverlayContainer>
-                <OverlayStyle>
-                    <OverlayPanelLeft>
+            <OverlayContainer ref={overlayContainer}>
+                <OverlayStyle ref={overlay}>
+                    <OverlayPanelLeft ref={overlayPanelLeft}>
                         <h1>Welcome Back!</h1>
                         <p>To keep connected with us please login with your personal info</p>
                         <button onClick={()=>setRightPanelActive(!rightPanelActive)} className="ghost" id="signIn">Sign In</button>
                     </OverlayPanelLeft>
-                    <OverlayPanelRight>
+                    <OverlayPanelRight ref={overlayPanelRight}>
                         <h1>Hello, Friend!</h1>
                         <p>Enter your personal details and start journey with us</p>
                         <button onClick={()=>setRightPanelActive(!rightPanelActive)} className="ghost" id="signUp">Sign Up</button>
