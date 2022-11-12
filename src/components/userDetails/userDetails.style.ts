@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import {IUserImageStyle} from "../../types/style.types";
 import {LoaderBackgroundWhite} from "../loaders/bottleLoader/bottleLoader.style";
+import {device} from "../../utils/constants/mediaQuery.constants";
 
 export const UserDetailsStyle = styled.div`
   background: white;
@@ -16,6 +17,11 @@ export const UserDetailsStyle = styled.div`
   position: relative;
   min-height: 244px;
   overflow: hidden;
+
+  ${device.tablet`
+      flex-direction: column;
+      min-width: 0;
+    `}
 `
 
 export const UserImageStyle = styled.label<IUserImageStyle>`
@@ -32,6 +38,12 @@ export const UserImageStyle = styled.label<IUserImageStyle>`
   cursor: pointer;
   position: relative;
   overflow: hidden;
+
+  ${device.tablet`
+      width: 150px;
+      height: 150px;
+      margin-bottom: 25px;
+    `}
 
   &:after {
     content: '';
@@ -80,6 +92,11 @@ export const UserNameStyle = styled.input`
     cursor: text;
     border-bottom: 2px solid black;
   }
+
+  ${device.tablet`
+      font-size: 20px;
+      text-align: center;
+    `}
 `
 
 export const UserEmailStyle = styled.div`
@@ -88,6 +105,11 @@ export const UserEmailStyle = styled.div`
   margin-bottom: 15px;
   color: darkgrey;
   cursor: default;
+
+  ${device.tablet`
+      font-size: 16px;
+      text-align: center;
+    `}
 `
 
 export const ContainerColumn = styled.div`
@@ -96,7 +118,7 @@ export const ContainerColumn = styled.div`
 `
 
 export const LogOutButton = styled.div`
-  background: white;
+  background: transparent;
   border-radius: 10px;
   color: black;
   cursor: pointer;
@@ -104,6 +126,12 @@ export const LogOutButton = styled.div`
   right: 5px;
   bottom: 5px;
   padding: 10px 40px 10px 10px;
+  
+  ${device.tablet`
+      background: transparent;
+      color: transparent;
+      text-align: center;
+    `}
 
   &:after {
     content: '';

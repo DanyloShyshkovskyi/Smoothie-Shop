@@ -8,6 +8,7 @@ import {BottleLoaderSvg} from "../../loaders/bottleLoader/bottleLoader.svg";
 import {useTypedSelector} from "../../../store/useTypedSelector";
 import {Leaves} from "../../leaves/leaves";
 import useUpdateCart from "../../../services/hooks/useUpdateCart";
+import {useSwipeable} from "react-swipeable";
 
 const infinity = true // set to false to remove infinity slide
 
@@ -24,15 +25,21 @@ const ProductContainer = () => {
     // Custom Hook to update users cart data
     useUpdateCart()
 
-    // Increase decrease functions
+    // Increase decrease count functions
     const increaseCount = () =>
         setCount(prev => (productData && prev === productData.length - 1) ? 0 : prev + 1)
 
     const decreaseCount = () =>
         setCount(prev => (productData && prev === 0) ? productData.length - 1 : prev - 1)
 
+    // Swappable function
+    const handlers = useSwipeable({
+        onSwipedLeft: increaseCount,
+        onSwipedRight: decreaseCount,
+    });
+
     return (
-            <ProductContainerView>
+            <ProductContainerView {...handlers}>
                 {isLoading && <BottleLoaderSvg/>}
                 <>
                     <SliderArrow
@@ -41,6 +48,7 @@ const ProductContainer = () => {
                         disabled={!infinity && productData && count === productData.length - 1}
                         onClick={increaseCount}
                     />
+                    <Leaves loaded={isLoading}/>
                     <ProductSlide
                         productDetails={productData && productData[count]}
                         counts={{
@@ -54,7 +62,6 @@ const ProductContainer = () => {
                         disabled={!infinity && productData && count === 0}
                         onClick={decreaseCount}
                     />
-                    <Leaves loaded={isLoading}/>
                 </>
             </ProductContainerView>
     );

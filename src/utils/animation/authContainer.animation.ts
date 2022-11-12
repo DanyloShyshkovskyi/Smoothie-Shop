@@ -1,5 +1,6 @@
 import {RefObject, useEffect, useRef} from "react";
 import {gsap} from "gsap";
+import useWindowSize from "../../services/hooks/useWindowSize";
 
 type TUseAuthContainerAnimation = {
     formSingIn: RefObject<HTMLDivElement>
@@ -10,7 +11,7 @@ type TUseAuthContainerAnimation = {
     overlayPanelRight: RefObject<HTMLDivElement>
 }
 
-const animationJSON = {
+const animationJSON = (isTablet: boolean) => ({
     formSingIn: {
         from: {x: "0"},
         to: {x: "100%"}
@@ -25,7 +26,7 @@ const animationJSON = {
     },
     overlayContainer: {
         from: {x: "0"},
-        to: {x: "-100%"}
+        to: {x: isTablet ? "-234%" : "-100%"}
     },
     overlayPanelLeft: {
         from: {x: "-20%"},
@@ -35,18 +36,24 @@ const animationJSON = {
         from: {x: "0"},
         to: {x: "20%"}
     }
-}
+})
 
 
 export const useAuthContainerAnimation = (refs: TUseAuthContainerAnimation, isReversed: boolean) => {
+    // Refs
     const modalTween = useRef<GSAPTimeline>();
+
+    // Window Size Handle
+    const windowSize = useWindowSize();
+    console.log(windowSize)
+
     useEffect(() => {
         modalTween.current = gsap
             .timeline({
                 paused: true,
                 defaults: {ease: "expo.inOut", duration: 1}
             })
-        for (const [key, value] of Object.entries(animationJSON)) {
+        for (const [key, value] of Object.entries(animationJSON(windowSize <= 768))) {
             modalTween.current.fromTo(
                 refs[key as keyof TUseAuthContainerAnimation].current, {...value.to}, {...value.from}, 0).reverse()
         }

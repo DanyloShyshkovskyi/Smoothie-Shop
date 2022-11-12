@@ -5,28 +5,19 @@ import ProductContainer from "./components/layout/productContainer/productContai
 import Modal from "./components/modal/modal";
 import {ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import {useTypedSelector} from "./store/useTypedSelector";
+import {AppStyle} from "./utils/helpers/style.helpers";
 
 function App() {
+    const {isOpen} = useTypedSelector(state => state.modal)
+
     return (
-        <div className="App">
+        <AppStyle {...{isOpen}}>
             <NavBar/>
             <ProductContainer/>
             <Modal />
-            <ToastContainer
-                position="top-right"
-                autoClose={5000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="light"
-            />
-            {/* Same as */}
             <ToastContainer />
-        </div>
+        </AppStyle>
     );
 }
 

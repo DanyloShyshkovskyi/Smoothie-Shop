@@ -1,5 +1,6 @@
 import styled  from 'styled-components'
 import {HEADER_HEIGHT, ListReset, PADDING_DEFAULT, SPACE_DEFAULT} from "../../../../utils/helpers/style.helpers";
+import {device} from "../../../../utils/constants/mediaQuery.constants";
 
 export const NavBarView = styled.nav`
   background: white;
@@ -12,6 +13,11 @@ export const NavBarView = styled.nav`
   box-sizing: border-box;
   padding: ${PADDING_DEFAULT}px;
   position: fixed;
+  
+  ${device.tablet`
+        z-index: 2;
+        box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px;
+  `}
 `
 NavBarView.displayName = "Navka"
 
@@ -19,6 +25,10 @@ export const LogoView = styled.h1`
   font-size: 30px;
   font-weight: 800;
   text-transform: uppercase;
+
+  ${device.tablet`
+        font-size: 20px;
+  `}
 `
 
 export const NavBarLinksView = styled(ListReset)`
@@ -26,12 +36,32 @@ export const NavBarLinksView = styled(ListReset)`
   flex-direction: row;
   align-items: center;
   gap: ${SPACE_DEFAULT*2}px;
+
+  ${device.tablet`
+      gap: 20px
+    `}
 `
 
 export const NavBarLinkView = styled.li`
   font-size: 14px;
   position: relative;
   cursor: pointer;
+  
+  &.userLink {
+    img {
+      display: none;
+    }
+    
+    ${device.tablet`
+        span {
+          display: none;
+        }
+        
+        img {
+          display: block;
+        }
+    `}
+  }
 `
 
 export const IconsView = styled.img`

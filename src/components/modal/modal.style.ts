@@ -1,5 +1,6 @@
 import styled, {css} from "styled-components";
 import {IModalContainer, IModalDialog} from "../../types/style.types";
+import {device} from "../../utils/constants/mediaQuery.constants";
 
 export const ModalContainer = styled.div<IModalContainer>`
   height: 100vh;
@@ -11,6 +12,7 @@ export const ModalContainer = styled.div<IModalContainer>`
   right: 0;
   bottom: 0;
   visibility: hidden;
+  overflow: auto;
 
   ${props => props.show && css`
     visibility: visible;
@@ -18,13 +20,18 @@ export const ModalContainer = styled.div<IModalContainer>`
     align-items: center;
     justify-content: center;
   `}
+
+  ${device.tablet`
+      align-items: flex-start;
+      box-sizing: border-box;
+    `}
 `
 
 export const ModalVeil = styled.div`
   height: 100vh;
   width: 100%;
   background-color: rgba(51, 51, 51, 0.85);
-  position: absolute;
+  position: fixed;
 `
 
 export const ModalDialog = styled.div<IModalDialog>`
@@ -33,6 +40,13 @@ export const ModalDialog = styled.div<IModalDialog>`
   border-radius: 5px;
   padding: 20px;
   transform: translateY(50px);
+
+  ${device.tablet`
+      width: 100%;
+      align-items: flex-start;
+      box-sizing: border-box;
+      margin: 70px 10px;
+    `}
 
   ${props => props.type === 'auth' && css`
     padding: 0;

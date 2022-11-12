@@ -4,7 +4,9 @@ import {
     AuthContainerStyle,
     FormSignUpStyle,
     FormSingInStyle,
-    OverlayContainer, OverlayPanelLeft, OverlayPanelRight,
+    OverlayContainer,
+    OverlayPanelLeft,
+    OverlayPanelRight,
     OverlayStyle
 } from "./authContainer.style";
 import {useRef, useState} from "react";

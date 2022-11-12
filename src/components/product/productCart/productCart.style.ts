@@ -1,6 +1,7 @@
 import styled, {css} from "styled-components";
 import {ButtonReset, PADDING_DEFAULT} from "../../../utils/helpers/style.helpers";
 import {IProductCountButton} from "../../../types/style.types";
+import {device} from "../../../utils/constants/mediaQuery.constants";
 
 export const ProductCartView = styled.div`
   height: 70px;
@@ -20,11 +21,16 @@ export const ProductCartImage = styled.img`
 export const ProductCartName = styled.h1`
   font-size: 13px;
   text-transform: capitalize;
+  margin: 0 10px;
 `
 
 export const ProductCountContainer = styled.div`
   display: flex;
   gap: 20px;
+
+  ${device.tablet`
+      gap: 10px;
+    `}
 `
 
 export const ProductCountButton = styled(ButtonReset)<IProductCountButton>`

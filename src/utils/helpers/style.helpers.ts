@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, {css} from "styled-components";
 
 export const SPACE_DEFAULT = 20;
 export const PADDING_DEFAULT = 25;
@@ -10,6 +10,16 @@ export const ListReset = styled.ul`
   padding: 0;
   text-indent: 0;
   list-style-type: none;
+`
+
+export const AppStyle = styled.div<{isOpen: boolean}>`
+  text-align: center;
+  height: 100%;
+  width: 100%;
+  
+    ${props => props.isOpen && css`
+      overflow: hidden;
+    `}
 `
 
 export const ButtonReset = styled.button`

@@ -1,16 +1,42 @@
 import styled, {css} from "styled-components";
 import {HEADER_HEIGHT} from "../../../utils/helpers/style.helpers";
 import {ArrowsProps} from "../../../types/style.types";
+import {device} from "../../../utils/constants/mediaQuery.constants";
 
 export const ProductContainerView = styled.div`
   width: 100vw;
   height: calc(100vh - ${HEADER_HEIGHT}px);
   background: white;
   margin-top: ${HEADER_HEIGHT}px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
+
+  nav {
+    background-color: rgba(255, 255, 255, 0.52);
+    display: flex;
+    flex-direction: row;
+    backdrop-filter: blur(5px);
+    justify-content: space-around;
+    align-items: center;
+    z-index: 2;
+    padding-right: 40px;
+    box-shadow: rgba(17, 17, 26, 0.1) 0 1px 0;
+  }
+
+  ${device.tablet`
+      nav {
+        position: sticky;
+        top: 70px;
+  `}
+
+  article {
+    position: relative;
+    width: 100%;
+    margin-top: calc(100vh - ${HEADER_HEIGHT}px - 57px - 95px);
+    background-color: rgba(255, 255, 255, 0.52);
+    backdrop-filter: blur(5px);
+    padding: 0 10px;
+    box-sizing: border-box;
+    z-index: 2;
+  }
 `
 
 export const SliderArrow = styled.img<ArrowsProps>`
@@ -22,9 +48,19 @@ export const SliderArrow = styled.img<ArrowsProps>`
   position: absolute;
   width: 20px;
   height: 20px;
-  z-index: 1;
+  z-index: 3;
   cursor: pointer;
   backdrop-filter: blur(3px);
+
+  ${device.tablet`
+      position: fixed;
+      top: 80px;
+      background: none;
+      backdrop-filter: none;
+      border: none;
+      padding: 10px
+  `
+  }
 
   ${props => props.disabled && css`
     opacity: 0.3;
@@ -35,10 +71,19 @@ export const SliderArrow = styled.img<ArrowsProps>`
   ${props => props.next && css`
     top: 50%;
     right: 50px;
+
+  ${device.tablet`
+      right: 10px;
+  `}
   `}
 
   ${props => props.prev && css`
     top: 50%;
     left: 50px;
+
+    ${device.tablet`
+      left: auto;
+      right: 50px;
+  `}
   `}
 `

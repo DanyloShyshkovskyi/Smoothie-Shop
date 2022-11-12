@@ -1,5 +1,6 @@
-import styled, {css, keyframes} from "styled-components";
+import styled from "styled-components";
 import {IAuthContainer} from "../../../types/style.types";
+import {device} from "../../../utils/constants/mediaQuery.constants";
 
 export const AuthContainerStyle = styled.div<IAuthContainer>`
   background-color: #fff;
@@ -12,34 +13,8 @@ export const AuthContainerStyle = styled.div<IAuthContainer>`
   height: 100%;
   box-sizing: border-box;
 
-  ${props => props.rightPanelActive && css`
-
-    ${FormSingInStyle} {
-      transform: translateX(100%);
-    }
-
-    ${FormSignUpStyle} {
-      transform: translateX(100%);
-      opacity: 1;
-      z-index: 5;
-      animation: ${show} 0.6s;
-    }
-
-    ${OverlayStyle} {
-      transform: translateX(50%);
-    }
-
-    ${OverlayContainer} {
-      transform: translateX(-100%);
-    }
-
-    ${OverlayPanelLeft} {
-      transform: translateX(0);
-    }
-
-    ${OverlayPanelRight} {
-      transform: translateX(20%);
-    }
+  ${device.tablet`
+    width: 100%;
   `}
 `
 
@@ -58,24 +33,21 @@ export const FormSingInStyle = styled(FormContainerStyle)`
   left: 0;
   width: 50%;
   z-index: 2;
+
+  ${device.tablet`
+    width: 70%;
+  `}
 `
 export const FormSignUpStyle = styled(FormContainerStyle)`
   left: 0;
   width: 50%;
   opacity: 0;
   z-index: 1;
-`
 
-const show = keyframes`
-  0%, 49.99% {
-    opacity: 0;
-    z-index: 1;
-  }
-
-  50%, 100% {
-    opacity: 1;
-    z-index: 5;
-  }
+  ${device.tablet`
+    width: 70%;
+    left: -40%;
+  `}
 `
 
 export const OverlayContainer = styled.div`
@@ -88,6 +60,11 @@ export const OverlayContainer = styled.div`
   overflow: hidden;
   //transition: transform 0.6s ease-in-out;
   z-index: 10;
+  
+  ${device.tablet`
+    left: 70%;
+    width: 30%;
+  `}
 `
 
 export const OverlayStyle = styled.div`
@@ -121,6 +98,10 @@ export const OverlayPanel = styled.div`
   transform: translateX(0);
   //transition: transform 0.6s ease-in-out;
 
+  ${device.tablet`
+      padding: 0 10px;
+  `}
+
   button {
     margin-top: 15px;
     cursor: pointer;
@@ -136,6 +117,12 @@ export const OverlayPanel = styled.div`
     transition: transform 80ms ease-in,
     background-color 300ms ease-in;
 
+    ${device.tablet`
+      width: 100%;
+      font-size: 10px;
+      padding: 8px;
+  `}
+
     &:focus,
     &:hover {
       background-color: rgba(0, 0, 0, 0.1);
@@ -146,6 +133,18 @@ export const OverlayPanel = styled.div`
     &:active {
       transform: scale(0.95);
     }
+  }
+  
+  h1 {
+    ${device.tablet`
+      font-size: 18px
+  `}
+  }
+  
+  p {
+    ${device.tablet`
+      font-size: 12px
+  `}
   }
 `
 
