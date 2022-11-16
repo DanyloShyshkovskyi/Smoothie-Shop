@@ -1,6 +1,6 @@
 import {ChangeEvent, Dispatch, SetStateAction} from "react";
 import {getDownloadURL, ref, uploadBytesResumable} from "firebase/storage";
-import {storage} from "../firebase/firebase.config";
+import {storage} from "@services/firebase/firebase.config";
 
 export const imageUpload = (e: ChangeEvent<HTMLInputElement>, loading: Dispatch<SetStateAction<boolean>>, imageSend: (url: string) => void) => {
     const fileList = e.target.files

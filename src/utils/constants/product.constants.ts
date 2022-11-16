@@ -1,4 +1,4 @@
-import {IProduct} from "../../types/product.types";
+import {IProduct} from "@customTypes/product.types";
 
 export const defaultProduct: IProduct = {
     name: "orange",

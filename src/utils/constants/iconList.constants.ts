@@ -1,7 +1,5 @@
-import facebook from "../../assets/icons/facebook.svg"
-import google from "../../assets/icons/google.svg"
-import linkedIn from "../../assets/icons/linkedin.svg"
-import {facebookAuth, googleAuth} from "../../services/firebase/firebase.config";
+import {facebook, google, linkedIn} from "@assets/icons"
+import {facebookAuth, googleAuth} from "@services/firebase/firebase.config";
 
 export const FORM_ICONS = [
     {

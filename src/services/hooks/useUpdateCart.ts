@@ -1,8 +1,8 @@
 import {useEffect} from 'react';
 import {useAuthState} from "react-firebase-hooks/auth";
-import {auth} from "../firebase/firebase.config";
-import {useGetUserDataQuery, useUpdateDataMutation} from "../Actions/auth.action";
-import {useTypedSelector} from "../../store/useTypedSelector";
+import {auth} from "@services/firebase/firebase.config";
+import {useGetUserDataQuery, useUpdateDataMutation} from "@services/Actions/auth.action";
+import {useTypedSelector} from "@store/useTypedSelector";
 
 const useUpdateCart = () => {
     //getUserData
@@ -13,10 +13,10 @@ const useUpdateCart = () => {
     const cartData = useTypedSelector(state => state.cart)
     const [updateData] = useUpdateDataMutation()
 
-   useEffect(() => {
-       if (!(userData && auth.currentUser)) return
-       updateData({id: userData.keyId, data: {cart: cartData}})
-   },[cartData])
+    useEffect(() => {
+        if (!(userData && auth.currentUser)) return
+        updateData({id: userData.keyId, data: {cart: cartData}})
+    }, [cartData])
 };
 
 export default useUpdateCart;

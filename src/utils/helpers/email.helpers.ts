@@ -1,5 +1,5 @@
-import {ICartProduct} from "../../types/product.types";
-import {EMAIL_TEMPLATE_END, EMAIL_TEMPLATE_START} from "../templates/email.templeate";
+import {ICartProduct} from "@customTypes/product.types";
+import {EMAIL_TEMPLATE_END, EMAIL_TEMPLATE_START} from "@templates/email.templeate";
 import {summaryPrice} from "./array.helpers";
 
 export const ProductListTemplate = (productData: ICartProduct[]) => {

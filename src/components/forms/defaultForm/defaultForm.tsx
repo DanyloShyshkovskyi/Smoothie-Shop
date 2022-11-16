@@ -1,24 +1,15 @@
 import {FormStyle} from "./defaultForm.style";
-import {IconList} from "../../icon/iconList/iconList";
-import {FormEvent, useState} from "react";
-import {IFormElement} from "../../../types/auth.types";
-import {CustomInput} from "../customInput/customInput";
-import {createFormState, onFormInputChange} from "../../../utils/helpers/form.helpers";
-import {BottleLoaderSvg} from "../../loaders/bottleLoader/bottleLoader.svg";
+import {IconList} from "@components/icon";
+import {useState} from "react";
+import {IAuthForm, IDefaultForm} from "@customTypes/auth.types";
+import {CustomInput} from "@components/forms";
+import {createFormState, onFormInputChange} from "@helpers/form.helpers";
+import {BottleLoaderSvg} from "@components/loaders";
 
-interface IDefaultForm {
-    onSubmit: (e: FormEvent<HTMLFormElement>, formData: any) => void,
-    children?: JSX.Element | JSX.Element[],
-    submitLabel: string,
-    title?: string
-    options?: string,
-    errorMessage?: string,
-    isLoading?: boolean
-    formElements: IFormElement[]
-}
-
-export const DefaultForm = ({onSubmit, submitLabel, children, title, options, formElements, errorMessage, isLoading}: IDefaultForm) => {
-    const [formData, setFormData] = useState<any>(createFormState(formElements))
+export const DefaultForm = ({onSubmit, children, strings, formElements, errorMessage, isLoading}: IDefaultForm) => {
+    // React State
+    const [formData, setFormData] = useState<IAuthForm>(createFormState(formElements))
+    const {title, options, submitLabel} = strings
 
     return (
         <FormStyle onSubmit={(e) => {

@@ -12,14 +12,14 @@ export const ListReset = styled.ul`
   list-style-type: none;
 `
 
-export const AppStyle = styled.div<{isOpen: boolean}>`
+export const AppStyle = styled.div<{ isOpen: boolean }>`
   text-align: center;
   height: 100%;
   width: 100%;
-  
-    ${props => props.isOpen && css`
-      overflow: hidden;
-    `}
+
+  ${props => props.isOpen && css`
+    overflow: hidden;
+  `}
 `
 
 export const ButtonReset = styled.button`
@@ -36,10 +36,9 @@ export const ButtonReset = styled.button`
   line-height: 1;
   cursor: pointer;
   text-align: center;
-  transition: 
-          background 250ms ease-in-out, 
-          transform 150ms ease,
-          opacity 250ms ease-in-out;
+  transition: background 250ms ease-in-out,
+  transform 150ms ease,
+  opacity 250ms ease-in-out;
   -webkit-appearance: none;
   -moz-appearance: none;
   border-radius: 10px;
@@ -56,7 +55,7 @@ export const ButtonReset = styled.button`
   &:active {
     transform: scale(0.95);
   }
-  
+
   &:disabled {
     opacity: 0.5;
   }

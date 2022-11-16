@@ -10,9 +10,9 @@ export const otherAction = createApi({
                 try {
                     const response = await emailjs.send('service_0tyvu3c', 'template_5hw88ye', templateParams, '4spQlxMQI1DbVuk9O')
                     console.log('SUCCESS!', response.status, response.text);
-                    return { data: true}
+                    return {data: true}
                 } catch (e) {
-                    return { error: {reason: 'Check email js log'}}
+                    return {error: {reason: 'Check email js log'}}
                 }
             },
         }),

@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {IProduct, ICartIdProduct} from "../../types/product.types";
+import {IProduct, ICartIdProduct} from "@customTypes/product.types";
 
 const initialState:ICartIdProduct[] = []
 

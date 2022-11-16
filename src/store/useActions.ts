@@ -1,11 +1,9 @@
 import {useDispatch} from "react-redux";
 import {bindActionCreators} from "@reduxjs/toolkit";
-import {mainLoaderAction} from "./ui/mainLoader/mainLoader.slice";
-import {cartAction} from "./cart/cart.slice";
-import {modalAction} from "./ui/modal/modal.slice";
+import {cartAction} from "@store/cart/cart.slice";
+import {modalAction} from "@store/ui/modal/modal.slice";
 
 const allActions = {
-    ...mainLoaderAction,
     ...cartAction,
     ...modalAction
 }

@@ -1,5 +1,5 @@
 import {FC} from "react";
-import {ICustomInput} from "../../../types/customItem.type";
+import {ICustomInput} from "@customTypes/customItem.type";
 import {FormGroup} from "./customInput.style";
 
 export const CustomInput: FC<ICustomInput> = ({label, messageHandler, ...inputProps}) => {

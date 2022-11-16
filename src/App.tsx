@@ -1,12 +1,12 @@
 import React from 'react';
 import './App.css';
-import {NavBar} from "./components/layout/navigation/NavBar/NavBar";
-import ProductContainer from "./components/layout/productContainer/productContainer";
-import Modal from "./components/modal/modal";
+import {NavBar} from "@components/layout";
+import Modal from "@components/modal/modal";
 import {ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
-import {useTypedSelector} from "./store/useTypedSelector";
-import {AppStyle} from "./utils/helpers/style.helpers";
+import {useTypedSelector} from "@store/useTypedSelector";
+import {AppStyle} from "@helpers/style.helpers";
+import { ProductContainer } from '@components/containers';
 
 function App() {
     const {isOpen} = useTypedSelector(state => state.modal)

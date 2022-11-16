@@ -1,7 +1,6 @@
 import {RefObject, useEffect} from "react";
 import gsap from "gsap";
-import {useTypedSelector} from "../../store/useTypedSelector";
-import {IProduct} from "../../types/product.types";
+import {IProduct} from "@customTypes/product.types";
 
 type TUseProductAnimation = {
     titleRef: RefObject<HTMLDivElement>,
@@ -29,12 +28,12 @@ const vibeAnimation = (imageRef: TUseProductAnimation["imageRef"]) =>
 
 export const useProductAnimation = (
     refs: TUseProductAnimation,
-    dep: TDependencies
+    dep: TDependencies,
+    isOpenLoader: boolean,
 ) => {
-    const {isOpen} = useTypedSelector(state => state.mainLoader)
     useEffect(() => {
             if (!dep) return
-            if (isOpen) return
+            if (isOpenLoader) return
             gsap.fromTo(refs.titleRef.current, {
                 opacity: 0
             }, {
@@ -57,12 +56,12 @@ export const useProductAnimation = (
                 stagger: 0.2
             });
         },
-        [dep.productDetails, isOpen]);
+        [dep.productDetails, isOpenLoader]);
 
     useEffect(() => {
         if (!dep.productDetails) return
         if (dep.disabled) return
-        if (isOpen) return
+        if (isOpenLoader) return
         gsap.fromTo(refs.imageRef.current, {
             y: -1000,
         }, {
@@ -75,5 +74,21 @@ export const useProductAnimation = (
             },
             overwrite: true,
         });
-    },[dep.productDetails, dep.disabled, isOpen])
+    },[dep.productDetails, dep.disabled, isOpenLoader])
 }
+
+export const addToCartAnimation = (
+    imageRef: RefObject<HTMLDivElement>,
+    onStart: () => void,
+    onComplete: () => void
+) =>
+    gsap.fromTo(imageRef.current,
+        {y: 70},
+        {
+            y: -1000,
+            ease: 'back.in(1.7)',
+            duration: 0.5,
+            overwrite: true,
+            onStart: onStart,
+            onComplete: onComplete
+        })

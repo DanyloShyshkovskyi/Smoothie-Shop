@@ -1,5 +1,5 @@
 import styled, {css} from "styled-components";
-import {HEADER_HEIGHT} from "../../../utils/helpers/style.helpers";
+import {HEADER_HEIGHT} from "@helpers/style.helpers";
 import {BottleLoaderSvgParams} from "./bottleLoader.svg";
 
 export const LoaderBackgroundWhite = styled.div<BottleLoaderSvgParams>`

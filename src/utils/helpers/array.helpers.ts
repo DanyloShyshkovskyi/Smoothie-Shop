@@ -1,5 +1,5 @@
-import {ICartIdProduct, ICartProduct, IProduct} from "../../types/product.types";
-import {defaultProduct} from "../constants/product.constants";
+import {ICartIdProduct, ICartProduct, IProduct} from "@customTypes/product.types";
+import {defaultProduct} from "@constants/product.constants";
 
 export const cartProductLength = (array: ICartIdProduct[]) => {
     let count = 0
@@ -19,7 +19,7 @@ export const summaryPrice = (array: ICartProduct[]) => {
 
 export const fromIdToProduct = (cartProduct: ICartIdProduct, productData: IProduct[]): ICartProduct => {
     const product: IProduct = productData.find(x => x.id === cartProduct.id) || defaultProduct;
-    return  {...product, count: cartProduct.count}
+    return {...product, count: cartProduct.count}
 }
 
 export const fromIdArrayToProduct = (cartProducts: ICartIdProduct[], productData: IProduct[]): ICartProduct[] =>

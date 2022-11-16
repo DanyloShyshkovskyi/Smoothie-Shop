@@ -1,5 +1,5 @@
 import {createApi, fakeBaseQuery} from '@reduxjs/toolkit/query/react'
-import {auth, db} from "../firebase/firebase.config";
+import {auth, db} from "@services/firebase/firebase.config";
 import {addDoc, collection, doc, getDocs, query, updateDoc, where} from "firebase/firestore";
 import {
     createUserWithEmailAndPassword,
@@ -10,12 +10,12 @@ import {
     signInWithPopup,
     signOut
 } from "firebase/auth";
-import {IAuthData, IAuthLogin, IAuthRegister, IUpdateData} from "../../types/auth.types";
-import {ICartIdProduct} from "../../types/product.types";
-import {IData} from "../../types/global.types";
-import {cartSlice} from "../../store/cart/cart.slice";
-import {modalAction} from "../../store/ui/modal/modal.slice";
-import {firebaseErrorReturn} from "../../utils/helpers/validation.helpers";
+import {IAuthData, IAuthLogin, IAuthRegister, IUpdateData} from "@customTypes/auth.types";
+import {ICartIdProduct} from "@customTypes/product.types";
+import {IData} from "@customTypes/global.types";
+import {cartSlice} from "@store/cart/cart.slice";
+import {modalAction} from "@store/ui/modal/modal.slice";
+import {firebaseErrorReturn} from "@helpers/validation.helpers";
 
 export const authAction = createApi({
     reducerPath: "auth",
@@ -25,7 +25,6 @@ export const authAction = createApi({
         getUserData: build.query<IAuthData, string>({
             async queryFn(uid) {
                 try {
-                    console.log('uid-first', uid)
                     const q = query(collection(db, "users"), where("uid", "==", uid));
                     const doc = await getDocs(q);
                     const data = doc.docs[0].data() as IAuthData;
@@ -58,7 +57,9 @@ export const authAction = createApi({
                     } as IAuthData
                     await addDoc(collection(db, "users"), authData);
                     return {data: authData}
-                } catch (error) {return firebaseErrorReturn(error)}
+                } catch (error) {
+                    return firebaseErrorReturn(error)
+                }
             },
             async onQueryStarted(arg: IAuthRegister & IData<ICartIdProduct[]>, {dispatch, queryFulfilled}) {
                 try {
@@ -74,7 +75,9 @@ export const authAction = createApi({
                 try {
                     await signInWithEmailAndPassword(auth, email, password);
                     return {data: "done"}
-                } catch (error) {return firebaseErrorReturn(error)}
+                } catch (error) {
+                    return firebaseErrorReturn(error)
+                }
             },
             async onQueryStarted(arg: IAuthLogin, {dispatch, queryFulfilled}) {
                 try {
@@ -84,14 +87,12 @@ export const authAction = createApi({
                 }
             }
         }),
-        loginBySocialMedia: build.mutation<string, {provider: GoogleAuthProvider | FacebookAuthProvider, cart: ICartIdProduct[]}>({
+        loginBySocialMedia: build.mutation<string, { provider: GoogleAuthProvider | FacebookAuthProvider, cart: ICartIdProduct[] }>({
             async queryFn({provider, cart}) {
                 try {
                     const defaultReturnValue = {data: "done"}
                     const result = await signInWithPopup(auth, provider)
-                    console.log(result)
                     const details = getAdditionalUserInfo(result)
-                    console.log(details)
 
                     if (!details?.isNewUser) return defaultReturnValue
                     const profile = details.profile
@@ -122,7 +123,10 @@ export const authAction = createApi({
                     return {error: {reason: 'Somethig went wrong'}}
                 }
             },
-            async onQueryStarted(arg: {provider: GoogleAuthProvider | FacebookAuthProvider, cart: ICartIdProduct[]}, {dispatch, queryFulfilled}) {
+            async onQueryStarted(arg: { provider: GoogleAuthProvider | FacebookAuthProvider, cart: ICartIdProduct[] }, {
+                dispatch,
+                queryFulfilled
+            }) {
                 try {
                     await queryFulfilled
                     dispatch(modalAction.openModal('accountDetails'))

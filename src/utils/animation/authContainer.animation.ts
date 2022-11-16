@@ -1,6 +1,6 @@
 import {RefObject, useEffect, useRef} from "react";
 import {gsap} from "gsap";
-import useWindowSize from "../../services/hooks/useWindowSize";
+import useWindowSize from "@services/hooks/useWindowSize";
 
 type TUseAuthContainerAnimation = {
     formSingIn: RefObject<HTMLDivElement>
@@ -45,7 +45,6 @@ export const useAuthContainerAnimation = (refs: TUseAuthContainerAnimation, isRe
 
     // Window Size Handle
     const windowSize = useWindowSize();
-    console.log(windowSize)
 
     useEffect(() => {
         modalTween.current = gsap

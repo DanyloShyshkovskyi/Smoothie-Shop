@@ -1,9 +1,9 @@
-import {IError} from "../../types/global.types";
+import {IError} from "@customTypes/global.types";
 import {FirebaseError} from "@firebase/util";
 
 const isErrorReason = (
     error: unknown
-): error is {reason: string} =>
+): error is { reason: string } =>
     typeof error === 'object' && error != null && 'reason' in error
 
 export const putErrorMessage = (

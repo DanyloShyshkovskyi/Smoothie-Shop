@@ -1,6 +1,6 @@
 import styled, {css} from "styled-components";
-import {IModalContainer, IModalDialog} from "../../types/style.types";
-import {device} from "../../utils/constants/mediaQuery.constants";
+import {IModalContainer, IModalDialog} from "@customTypes/style.types";
+import {device} from "@constants/mediaQuery.constants";
 
 export const ModalContainer = styled.div<IModalContainer>`
   height: 100vh;

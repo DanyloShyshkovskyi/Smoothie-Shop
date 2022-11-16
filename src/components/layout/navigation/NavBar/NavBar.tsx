@@ -1,20 +1,24 @@
 import {CartCircle, IconsView, LogoView, NavBarLinksView, NavBarLinkView, NavBarView} from "./NavBar.styles";
-// import searchIcon from "../../../../assets/icons/search-icon.svg"
-import cartIcon from "../../../../assets/icons/cart-icon.png"
-import userIcon from "../../../../assets/icons/user.png"
+import {cartIcon, userIcon} from "@assets/icons"
 import {useRef} from "react";
-import {useActions} from "../../../../store/useActions";
-import {useTypedSelector} from "../../../../store/useTypedSelector";
-import {useNavBarAnimation, useNavCountAnimation} from "../../../../utils/animation/navBar.animation";
-import {cartProductLength} from "../../../../utils/helpers/array.helpers";
-import {auth} from "../../../../services/firebase/firebase.config";
+import {useActions} from "@store/useActions";
+import {useTypedSelector} from "@store/useTypedSelector";
+import {useNavBarAnimation, useNavCountAnimation} from "@animation/navBar.animation";
+import {cartProductLength} from "@helpers/array.helpers";
+import {auth} from "@services/firebase/firebase.config";
 
 export const NavBar = () => {
+    // Refs
     const navRef = useRef<HTMLDivElement>(null);
     const navCountRef = useRef<HTMLDivElement>(null);
+
+    // Actions
     const {openModal} = useActions()
+
+    // Redux state
     const cartData = useTypedSelector(state => state.cart)
 
+    // Animations
     useNavBarAnimation({navRef})
     useNavCountAnimation({navCountRef}, cartData)
 
@@ -30,11 +34,12 @@ export const NavBar = () => {
                 {/*</NavBarLinkView>*/}
                 <NavBarLinkView className={'userLink'} onClick={openMyAccount}>
                     <span>My account</span>
-                    <IconsView src={userIcon} alt={'user-icon'} />
+                    <IconsView src={userIcon} alt={'user-icon'}/>
                 </NavBarLinkView>
-                <NavBarLinkView onClick={()=>openModal("cart")}>
-                    <IconsView src={cartIcon} alt={'cart-icon'} />
-                    {cartProductLength(cartData) !== 0 && <CartCircle ref={navCountRef}>{cartProductLength(cartData)}</CartCircle>}
+                <NavBarLinkView onClick={() => openModal("cart")}>
+                    <IconsView src={cartIcon} alt={'cart-icon'}/>
+                    {cartProductLength(cartData) !== 0 &&
+                    <CartCircle ref={navCountRef}>{cartProductLength(cartData)}</CartCircle>}
                 </NavBarLinkView>
             </NavBarLinksView>
         </NavBarView>

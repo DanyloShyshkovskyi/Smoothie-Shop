@@ -1,6 +1,6 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {IModalInitialState} from "../../../components/modal/modal.types";
-import {IModalDialog} from "../../../types/style.types";
+import {IModalInitialState} from "@customTypes/modal.types";
+import {IModalDialog} from "@customTypes/style.types";
 
 const initialState: IModalInitialState = {
     isOpen: false,

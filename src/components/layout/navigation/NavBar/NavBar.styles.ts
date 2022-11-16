@@ -1,6 +1,6 @@
 import styled  from 'styled-components'
-import {HEADER_HEIGHT, ListReset, PADDING_DEFAULT, SPACE_DEFAULT} from "../../../../utils/helpers/style.helpers";
-import {device} from "../../../../utils/constants/mediaQuery.constants";
+import {HEADER_HEIGHT, ListReset, PADDING_DEFAULT, SPACE_DEFAULT} from "@helpers/style.helpers";
+import {device} from "@constants/mediaQuery.constants";
 
 export const NavBarView = styled.nav`
   background: white;
@@ -19,7 +19,6 @@ export const NavBarView = styled.nav`
         box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px;
   `}
 `
-NavBarView.displayName = "Navka"
 
 export const LogoView = styled.h1`
   font-size: 30px;

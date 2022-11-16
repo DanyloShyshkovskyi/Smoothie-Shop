@@ -1,13 +1,9 @@
 // @ts-ignore
 import Parallax from "parallax-js";
-import leaf01 from "../../assets/img/leaf/leaf01.png"
-import leaf02 from "../../assets/img/leaf/leaf02.png"
-import leaf03 from "../../assets/img/leaf/leaf03.png"
-import leaf04 from "../../assets/img/leaf/leaf04.png"
-import leaf05 from "../../assets/img/leaf/leaf05.png"
+import {leaf01, leaf02, leaf03, leaf04, leaf05} from "@assets/img/"
 import {LeavesScene, LeavesStyle} from "./leaves.style";
 import {useEffect, useRef} from "react";
-import {gsap} from "gsap";
+import useLeavesAnimation from "@animation/leaves.animation";
 
 const leaf = [
     {
@@ -47,27 +43,15 @@ type ILeaf = {
 }
 
 export const Leaves = ({loaded}: ILeaf) => {
+    // Refs
     const sceneRef = useRef<HTMLDivElement>(null);
 
+    useLeavesAnimation({sceneRef}, loaded)
+
+    // Parallax
     useEffect(() => {
         new Parallax(sceneRef.current);
     }, []);
-
-    useEffect(() => {
-        if (loaded) return
-        gsap.fromTo(sceneRef.current,
-            {
-                y: -1000,
-                duration: 0.5
-            },
-            {
-                y: 0,
-                duration: 0.5,
-                ease: 'expo',
-                delay: 0.5
-            }
-        )
-    }, [loaded])
 
     return (
         <LeavesScene ref={sceneRef}>

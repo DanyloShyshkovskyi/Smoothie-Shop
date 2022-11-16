@@ -1,7 +1,7 @@
-import { createApi, fakeBaseQuery } from '@reduxjs/toolkit/query/react'
-import {db} from "../firebase/firebase.config";
+import {createApi, fakeBaseQuery} from '@reduxjs/toolkit/query/react'
+import {db} from "@services/firebase/firebase.config";
 import {collection, getDocs} from "firebase/firestore"
-import {IProduct} from "../../types/product.types";
+import {IProduct} from "@customTypes/product.types";
 
 export const productAction = createApi({
     reducerPath: "products",
@@ -12,15 +12,15 @@ export const productAction = createApi({
                 try {
                     const productsCollection = collection(db, "products");
                     const result = await getDocs(productsCollection);
-                    const convertResult = result.docs.map((doc)=>({...doc.data() as IProduct}))
-                    return { data: convertResult }
+                    const convertResult = result.docs.map((doc) => ({...doc.data() as IProduct}))
+                    return {data: convertResult}
                 } catch (e) {
-                    return { error: {reason: 'too cold'}}
+                    return {error: {reason: 'too cold'}}
                 }
             },
-            async onQueryStarted(arg: null, { queryFulfilled }) {
+            async onQueryStarted(arg: null, {queryFulfilled}) {
                 try {
-                    const { data: productData } = await queryFulfilled
+                    const {data: productData} = await queryFulfilled
                     const imageSrcs = productData.map(product => product.src)
                     const randomStr = Math.random().toString(32).slice(2) + Date.now();
                     window.usePreloadImagesData = window.usePreloadImagesData ?? {};
@@ -30,7 +30,8 @@ export const productAction = createApi({
                         img.src = src;
                         window.usePreloadImagesData[randomStr].push(img);
                     }
-                } catch {}
+                } catch {
+                }
             }
         }),
     }),

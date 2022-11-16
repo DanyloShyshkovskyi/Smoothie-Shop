@@ -1,34 +1,29 @@
 import {
     ProductCartImage,
-    ProductCartName, ProductCartPrice,
+    ProductCartName,
+    ProductCartPrice,
     ProductCartView,
     ProductCountButton,
     ProductCountContainer,
     ProductCounter
 } from "./productCart.style";
-import {ICartIdProduct, ICartProduct} from "../../../types/product.types";
-import {useActions} from "../../../store/useActions";
-import {RefObject, useRef} from "react";
-import {gsap} from "gsap";
-import {removeWithAnimation} from "./productCart.utils";
+import {ICartProduct} from "@customTypes/product.types";
+import {useActions} from "@store/useActions";
+import {useRef} from "react";
+import {onMinusClick} from "./productCart.utils";
 
 interface IProductCartComponent {
     product: ICartProduct
 }
 
 export const ProductCart = ({product}: IProductCartComponent) => {
+    //Actions
     const {addToCart, removeFromCart} = useActions()
 
-    const onMinusClick = (ref: RefObject<HTMLDivElement>, product: ICartIdProduct) => {
-        if (product.count !== 1) {
-            removeFromCart(product.id)
-            return
-        }
-
-        gsap.delayedCall(removeWithAnimation(ref).duration(), ()=>removeFromCart(product.id));
-    }
-
+    // Refs
     const productCartRef = useRef<HTMLDivElement>(null)
+
+    const onRemove = () => onMinusClick(productCartRef, product, ()=>removeFromCart(product.id))
 
     return (
         <ProductCartView ref={productCartRef}>
@@ -37,14 +32,14 @@ export const ProductCart = ({product}: IProductCartComponent) => {
             <ProductCountContainer>
                 <ProductCountButton
                     plus
-                    onClick={()=>addToCart(product.id)}
+                    onClick={() => addToCart(product.id)}
                 >
                     +
                 </ProductCountButton>
                 <ProductCounter>{product.count}</ProductCounter>
                 <ProductCountButton
                     minus
-                    onClick={()=>onMinusClick(productCartRef, product)}
+                    onClick={onRemove}
                 >
                     -
                 </ProductCountButton>

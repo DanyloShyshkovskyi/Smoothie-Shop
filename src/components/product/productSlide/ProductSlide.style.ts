@@ -1,9 +1,9 @@
 import styled from 'styled-components'
-import {ButtonReset} from "../../../utils/helpers/style.helpers";
-import {device} from "../../../utils/constants/mediaQuery.constants";
+import {ButtonReset} from "@helpers/style.helpers";
+import {device} from "@constants/mediaQuery.constants";
 
 export const ProductTitle = styled.h1`
-  font-size: 20vw;
+  font-size: 12vw;
   text-transform: uppercase;
   font-weight: 700;
   position: fixed;
@@ -11,6 +11,10 @@ export const ProductTitle = styled.h1`
   top: 50%;
   transform: translate(-50%,-50%);
   margin: 0;
+
+  ${device.tablet`
+      font-size: 15vw;
+  `}
 `
 
 export const ProductFindText = styled.h4`

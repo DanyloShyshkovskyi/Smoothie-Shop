@@ -1,7 +1,7 @@
 import styled, {css} from "styled-components";
-import {ButtonReset, PADDING_DEFAULT} from "../../../utils/helpers/style.helpers";
-import {IProductCountButton} from "../../../types/style.types";
-import {device} from "../../../utils/constants/mediaQuery.constants";
+import {ButtonReset, PADDING_DEFAULT} from "@helpers/style.helpers";
+import {IProductCountButton} from "@customTypes/style.types";
+import {device} from "@constants/mediaQuery.constants";
 
 export const ProductCartView = styled.div`
   height: 70px;
@@ -41,14 +41,22 @@ export const ProductCountButton = styled(ButtonReset)<IProductCountButton>`
   align-items: center;
   padding: 5px;
   border-radius: 50%;
+  color: black;
+  background: transparent;
 
-  ${props => props.minus && css`
-    background: darkred;
-  `}
-  
-  ${props => props.plus && css`
-    background: darkseagreen;
-  `}
+  &:hover,
+  &:focus {
+    background: transparent;
+
+    ${props => props.minus && css`
+      color: darkred;
+    `}
+
+    ${props => props.plus && css`
+      color: darkseagreen;
+    `}
+
+  }
 `
 
 export const ProductCounter = styled.div`

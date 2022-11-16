@@ -1,5 +1,3 @@
-
-
 export const LOGIN_FORM_ELEMENTS = [
     {
         label: "Email",
@@ -32,3 +30,16 @@ export const REGISTER_FORM_ELEMENTS = [
     //     type: "password",
     // },
 ]
+
+export const FORM_STRINGS = {
+    login: {
+        title: 'Sign In',
+        options: 'or use your account',
+        submitLabel: 'Sign In',
+    },
+    register: {
+        title: 'Create Account',
+        options: 'or use your email for registration',
+        submitLabel: 'Sign Up',
+    }
+}

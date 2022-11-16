@@ -1,6 +1,6 @@
 import {RefObject, useEffect, useLayoutEffect} from "react";
 import gsap from "gsap";
-import {ICartIdProduct} from "../../types/product.types";
+import {ICartIdProduct} from "@customTypes/product.types";
 
 type TUseNavBarAnimation = {
     navRef: RefObject<HTMLDivElement>
