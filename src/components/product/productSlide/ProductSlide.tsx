@@ -74,7 +74,7 @@ export const ProductSlide = ({productDetails = defaultProduct, counts, loadingPa
             />
             <article>
                 <ProductButton data-testid={'productButton'} disabled={disabled} onClick={addToCartClick}>Add To
-                    Cart &#8593;</ProductButton>
+                    Cart</ProductButton>
                 <ProductDescription>
                     <h1>Your <span>healthy</span> life start with us</h1>
                     <span ref={descriptionRef}>{productDetails?.description}</span>

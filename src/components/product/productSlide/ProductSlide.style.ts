@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, {keyframes} from 'styled-components'
 import {ButtonReset} from "@helpers/style.helpers";
 import {device} from "@constants/mediaQuery.constants";
 
@@ -37,15 +37,35 @@ export const ProductFindText = styled.h4`
   `}
 `
 
+const arrowAnimation = keyframes`
+ 0% { transform: translateY(0px) }
+ 50% { transform: translateY(-10px) }
+ 100% { transform: translateY(0px) }
+`
+
 export const ProductButton = styled(ButtonReset)`
   position: absolute;
   bottom: 100px;
   left: 100px;
   z-index: 1;
+  padding-right: 50px;
+  transition: transform 0.3s ease-in-out;
 
   &:disabled {
     &:active {
       transform: scale(1);
+    }
+  }
+  
+  &:after {
+    content: "\\2191";
+    position: absolute;
+    right: 20px;
+  }
+  
+  &:hover {
+    &:after {
+      animation: ${arrowAnimation} infinite 1s;
     }
   }
 

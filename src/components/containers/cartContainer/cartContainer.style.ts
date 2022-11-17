@@ -3,7 +3,7 @@ import {ButtonReset} from "@helpers/style.helpers";
 
 export const EmailButton = styled(ButtonReset)`
   background: white;
-  border: 1px black solid;
+  border: 2px black solid;
   color: black;
   border-radius: 20px;
   margin: 30px 0 10px 10px;
