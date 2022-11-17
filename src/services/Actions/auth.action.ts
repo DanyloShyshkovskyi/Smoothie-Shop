@@ -1,21 +1,21 @@
+import {IAuthData, IAuthLogin, IAuthRegister, IUpdateData} from "@customTypes/auth.types";
+import {IData} from "@customTypes/global.types";
+import {ICartIdProduct} from "@customTypes/product.types";
+import {userDataFromLoginServices} from '@helpers/auth.helpers';
+import {firebaseErrorReturn} from "@helpers/validation.helpers";
 import {createApi, fakeBaseQuery} from '@reduxjs/toolkit/query/react'
 import {auth, db} from "@services/firebase/firebase.config";
-import {addDoc, collection, doc, getDocs, query, updateDoc, where} from "firebase/firestore";
+import {cartAction} from "@store/cart";
+import {modalAction} from "@store/ui/modal";
 import {
     createUserWithEmailAndPassword,
     FacebookAuthProvider,
-    getAdditionalUserInfo,
     GoogleAuthProvider,
     signInWithEmailAndPassword,
     signInWithPopup,
     signOut
 } from "firebase/auth";
-import {IAuthData, IAuthLogin, IAuthRegister, IUpdateData} from "@customTypes/auth.types";
-import {ICartIdProduct} from "@customTypes/product.types";
-import {IData} from "@customTypes/global.types";
-import {cartSlice} from "@store/cart/cart.slice";
-import {modalAction} from "@store/ui/modal/modal.slice";
-import {firebaseErrorReturn} from "@helpers/validation.helpers";
+import {addDoc, collection, doc, getDocs, query, updateDoc, where} from "firebase/firestore";
 
 export const authAction = createApi({
     reducerPath: "auth",
@@ -39,7 +39,7 @@ export const authAction = createApi({
             async onQueryStarted(arg: string, {dispatch, queryFulfilled}) {
                 try {
                     const {data: updatedPost} = await queryFulfilled
-                    dispatch(cartSlice.actions.concatCarts(updatedPost.cart || []))
+                    dispatch(cartAction.concatCarts(updatedPost.cart || []))
                 } catch {
                 }
             }
@@ -63,7 +63,7 @@ export const authAction = createApi({
             },
             async onQueryStarted(arg: IAuthRegister & IData<ICartIdProduct[]>, {dispatch, queryFulfilled}) {
                 try {
-                    dispatch(cartSlice.actions.clearCart())
+                    dispatch(cartAction.clearCart())
                     await queryFulfilled
                     dispatch(modalAction.openModal('accountDetails'))
                 } catch {
@@ -92,32 +92,11 @@ export const authAction = createApi({
                 try {
                     const defaultReturnValue = {data: "done"}
                     const result = await signInWithPopup(auth, provider)
-                    const details = getAdditionalUserInfo(result)
+                    const userData = userDataFromLoginServices(result, cart)
+                    if (userData) return defaultReturnValue
+                    await addDoc(collection(db, "users"), userData);
 
-                    if (!details?.isNewUser) return defaultReturnValue
-                    const profile = details.profile
-                    if (!profile) return defaultReturnValue
-                    const picture = profile.picture as { data: { url: string } }
-
-                    let authData = {uid: result.user.uid, email: profile.email, cart} as IAuthData
-
-                    if (details.providerId === "facebook.com")
-                        authData = {
-                            ...authData,
-                            name: profile.name as string,
-                            image: picture.data.url
-                        }
-
-                    if (details.providerId === "google.com")
-                        authData = {
-                            ...authData,
-                            name: details.profile.given_name as string,
-                            image: details.profile.picture as string
-                        }
-
-                    await addDoc(collection(db, "users"), authData);
-
-                    return {data: "done"}
+                    return defaultReturnValue
                 } catch (err) {
                     console.error(err);
                     return {error: {reason: 'Somethig went wrong'}}
@@ -147,7 +126,7 @@ export const authAction = createApi({
             async onQueryStarted(arg: null, {dispatch, queryFulfilled}) {
                 try {
                     await queryFulfilled
-                    dispatch(cartSlice.actions.clearCart())
+                    dispatch(cartAction.clearCart())
                     dispatch(modalAction.openModal('auth'))
                 } catch {
                 }
@@ -163,7 +142,6 @@ export const authAction = createApi({
                     return {error: {reason: 'Somethig went wrong'}}
                 }
             },
-            // invalidatesTags: ['User'],
             onQueryStarted(arg: IUpdateData, {dispatch, queryFulfilled}) {
                 const patchedData = dispatch(
                     authAction.util.updateQueryData("getUserData", arg.data.uid, (draft) => {

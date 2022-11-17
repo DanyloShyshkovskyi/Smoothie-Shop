@@ -1,6 +1,6 @@
-import {RefObject, useEffect} from "react";
-import gsap from "gsap";
 import {IProduct} from "@customTypes/product.types";
+import gsap from "gsap";
+import {RefObject, useEffect} from "react";
 
 type TUseProductAnimation = {
     titleRef: RefObject<HTMLDivElement>,
@@ -55,26 +55,27 @@ export const useProductAnimation = (
                 duration: 1,
                 stagger: 0.2
             });
-        },
+        }, // eslint-disable-next-line react-hooks/exhaustive-deps
         [dep.productDetails, isOpenLoader]);
 
     useEffect(() => {
-        if (!dep.productDetails) return
-        if (dep.disabled) return
-        if (isOpenLoader) return
-        gsap.fromTo(refs.imageRef.current, {
-            y: -1000,
-        }, {
-            y: 70,
-            opacity: 1,
-            ease: 'expo',
-            duration: 1,
-            onComplete: () => {
-                vibeAnimation(refs.imageRef)
-            },
-            overwrite: true,
-        });
-    },[dep.productDetails, dep.disabled, isOpenLoader])
+            if (!dep.productDetails) return
+            if (dep.disabled) return
+            if (isOpenLoader) return
+            gsap.fromTo(refs.imageRef.current, {
+                y: -1000,
+            }, {
+                y: 70,
+                opacity: 1,
+                ease: 'expo',
+                duration: 1,
+                onComplete: () => {
+                    vibeAnimation(refs.imageRef)
+                },
+                overwrite: true,
+            });
+        }, // eslint-disable-next-line react-hooks/exhaustive-deps
+        [dep.productDetails, dep.disabled, isOpenLoader])
 }
 
 export const addToCartAnimation = (

@@ -1,4 +1,7 @@
+import {useAuthContainerAnimation} from "@animation/authContainer.animation";
 import {LoginForm, RegisterForm} from "@components/forms";
+import {overlayPanelConstant} from "@constants/authForm.constants";
+import {useRef, useState} from "react";
 import {
     AuthContainerStyle,
     FormSignUpStyle,
@@ -8,10 +11,7 @@ import {
     OverlayPanelRight,
     OverlayStyle
 } from "./authContainer.style";
-import {useRef, useState} from "react";
-import {useAuthContainerAnimation} from "@animation/authContainer.animation";
 import OverlayPanel from "./utils/overlayPanel";
-import {overlayPanelConstant} from "@constants/authForm.constants";
 
 export const AuthContainer = () => {
     // React state

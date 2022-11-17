@@ -1,19 +1,19 @@
-import React, {useRef} from "react";
-import {useTypedSelector} from "@store/useTypedSelector";
-import {NoContent} from "@components/product/productCart/productCart.style";
 import {useCartContainerAnimation} from "@animation/cartContainer.animation";
-import {useGetProductsQuery} from "@services/Actions/product.action";
-import {useAuthState} from "react-firebase-hooks/auth";
-import {auth} from "@services/firebase/firebase.config";
-import {useGetUserDataQuery} from "@services/Actions/auth.action";
+import {EmailCommunicate} from "@components/communicates";
+import {BottleLoaderSvg} from "@components/loaders";
+import {ProductCart} from "@components/product";
+import {NoContent} from "@components/product/productCart/productCart.style";
 import {fromIdArrayToProduct, fromIdToProduct} from "@helpers/array.helpers";
 import {ProductListTemplate} from "@helpers/email.helpers";
-import {EmailButton} from "./cartContainer.style";
-import {BottleLoaderSvg} from "@components/loaders";
+import {useGetUserDataQuery} from "@services/Actions/auth.action";
 import {useSendEmailMutation} from "@services/Actions/other.action";
-import {EmailCommunicate} from "@components/communicates";
+import {useGetProductsQuery} from "@services/Actions/product.action";
+import {auth} from "@services/firebase/firebase.config";
 import {useActions} from "@store/useActions";
-import {ProductCart} from "@components/product";
+import {useTypedSelector} from "@store/useTypedSelector";
+import React, {useRef} from "react";
+import {useAuthState} from "react-firebase-hooks/auth";
+import {EmailButton} from "./cartContainer.style";
 
 export const CartContainer = () => {
     // auth response
@@ -31,7 +31,7 @@ export const CartContainer = () => {
     const {isOpen} = useTypedSelector(state => state.modal)
 
     // Actions
-    const {clearCart, openModal} = useActions()
+    const {openModal} = useActions()
 
     // Refs
     const productsListRef = useRef<HTMLDivElement>(null)
@@ -50,12 +50,12 @@ export const CartContainer = () => {
             to_name: userData.name,
             reply_to: userData.email,
             message: ProductListTemplate(fromIdArrayToProduct(cartData, productData))
-        }).then((response) => "error" in response ? console.log(response.error) : clearCart())
+        })
     }
 
     return (
-        isSuccess || isError
-            ? <EmailCommunicate {...{isError, isSuccess, email: userData ? userData.email : "noEmail"}} />
+        isSuccess || isError ?
+            <EmailCommunicate {...{isError, isSuccess, email: userData ? userData.email : "noEmail"}} />
             : <>
                 {isLoading && <BottleLoaderSvg fullAbsolute/>}
                 <h1>{userData ? userData.name : "Client"}'s cart:</h1>

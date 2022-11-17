@@ -1,6 +1,6 @@
-import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {IModalInitialState} from "@customTypes/modal.types";
 import {IModalDialog} from "@customTypes/style.types";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 const initialState: IModalInitialState = {
     isOpen: false,
@@ -11,7 +11,7 @@ export const modalSlice = createSlice({
     name: 'modal',
     initialState,
     reducers: {
-        openModal: (state, action:PayloadAction<IModalDialog['type']>) => {
+        openModal: (state, action: PayloadAction<IModalDialog['type']>) => {
             state.isOpen = true
             state.type = action.payload
         },
@@ -21,6 +21,3 @@ export const modalSlice = createSlice({
         }
     }
 })
-
-export const modalReducer = modalSlice.reducer
-export const modalAction = modalSlice.actions

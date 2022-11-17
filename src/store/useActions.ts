@@ -1,7 +1,7 @@
-import {useDispatch} from "react-redux";
 import {bindActionCreators} from "@reduxjs/toolkit";
-import {cartAction} from "@store/cart/cart.slice";
-import {modalAction} from "@store/ui/modal/modal.slice";
+import {cartAction} from "@store/cart";
+import {modalAction} from "@store/ui/modal";
+import {useDispatch} from "react-redux";
 
 const allActions = {
     ...cartAction,

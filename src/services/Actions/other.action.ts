@@ -1,5 +1,6 @@
-import {createApi, fakeBaseQuery} from '@reduxjs/toolkit/query/react'
 import emailjs from "@emailjs/browser";
+import {createApi, fakeBaseQuery} from '@reduxjs/toolkit/query/react'
+import {cartAction} from "@store/cart";
 
 export const otherAction = createApi({
     reducerPath: "others",
@@ -20,6 +21,14 @@ export const otherAction = createApi({
                     return {error: {reason: 'Check email js log'}}
                 }
             },
+            async onQueryStarted(arg: Record<string, unknown>, {dispatch, queryFulfilled}) {
+                try {
+                    await queryFulfilled
+                    dispatch(cartAction.clearCart())
+                } catch (error) {
+                    console.log(error)
+                }
+            }
         }),
     }),
 })

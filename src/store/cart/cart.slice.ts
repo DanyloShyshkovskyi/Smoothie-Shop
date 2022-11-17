@@ -1,13 +1,13 @@
+import {ICartIdProduct, IProduct} from "@customTypes/product.types";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {IProduct, ICartIdProduct} from "@customTypes/product.types";
 
-const initialState:ICartIdProduct[] = []
+const initialState: ICartIdProduct[] = []
 
 export const cartSlice = createSlice({
     name: 'cart',
     initialState,
     reducers: {
-        addToCart: (state, action:PayloadAction<IProduct['id']>) => {
+        addToCart: (state, action: PayloadAction<IProduct['id']>) => {
             const thisProductIndex = state.findIndex((product) => product.id === action.payload)
 
             if (thisProductIndex !== -1) {
@@ -21,7 +21,7 @@ export const cartSlice = createSlice({
             } as ICartIdProduct
             state.push(NewPayload)
         },
-        removeFromCart: (state, action:PayloadAction<IProduct['id']>) => {
+        removeFromCart: (state, action: PayloadAction<IProduct['id']>) => {
             const thisProductIndex = state.findIndex((product) => product.id === action.payload)
 
             if (thisProductIndex === -1) return
@@ -34,7 +34,7 @@ export const cartSlice = createSlice({
 
             return state.filter(product => product.id !== action.payload)
         },
-        concatCarts: (state, action:PayloadAction<ICartIdProduct[]>) => {
+        concatCarts: (state, action: PayloadAction<ICartIdProduct[]>) => {
             action.payload.forEach(item => {
                 const thisProductIndex = state.findIndex((product) => product.id === item.id)
 
@@ -56,6 +56,3 @@ export const cartSlice = createSlice({
         }
     }
 })
-
-export const cartReducer = cartSlice.reducer
-export const cartAction = cartSlice.actions
