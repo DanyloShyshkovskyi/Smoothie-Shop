@@ -8,7 +8,12 @@ export const otherAction = createApi({
         sendEmail: build.mutation<boolean, Record<string, unknown> | undefined>({
             async queryFn(templateParams) {
                 try {
-                    const response = await emailjs.send('service_0tyvu3c', 'template_5hw88ye', templateParams, '4spQlxMQI1DbVuk9O')
+                    const response = await emailjs.send(
+                        process.env.REACT_APP_SERVICE_ID as string,
+                        process.env.REACT_APP_TEMPLATE_ID as string,
+                        templateParams,
+                        process.env.REACT_APP_PUBLIC_KEY as string
+                    )
                     console.log('SUCCESS!', response.status, response.text);
                     return {data: true}
                 } catch (e) {

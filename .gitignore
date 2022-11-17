@@ -24,3 +24,6 @@ yarn-error.log*
 
 #hide idea folder
 .idea
+
+#hide env folder
+.env
